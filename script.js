@@ -33,9 +33,11 @@ const textTextures = [];
 overlay.addEventListener('click', () => {
     overlay.style.opacity = '0';
     setTimeout(() => overlay.remove(), 1000);
-    if(music) music.play().catch(e => console.log("Click để phát nhạc"));
-    
-    document.fonts.ready.then(() => {
+    if(music) music.play().catch(e => console.log("Click để phát nhạc"));    
+    document.fonts.load('bold 50px "Playwrite DE Grund"').then(() => {
+        initThreeJS();
+    }).catch(err => {
+        console.log("Font chưa tải kịp, chạy fallback");
         initThreeJS();
     });
 });
@@ -235,7 +237,6 @@ function animate() {
     const bottomLimit = -15;
     const topLimit = 15;
 
-    // Cập nhật chữ rơi
     fallingTexts.forEach(mesh => {
         mesh.position.y -= mesh.userData.speed;
         if (mesh.position.y < bottomLimit) {
@@ -245,7 +246,6 @@ function animate() {
         mesh.lookAt(camera.position); 
     });
 
-    // --- CẬP NHẬT TUYẾT RƠI ---
     if (snowSystem) {
         const positions = snowSystem.geometry.attributes.position.array;
         const velocities = snowSystem.geometry.attributes.velocity.array;
@@ -259,10 +259,8 @@ function animate() {
                 positions[i + 1] = 25;
             }
         }
-        // Báo cho Three.js biết cần vẽ lại vị trí
         snowSystem.geometry.attributes.position.needsUpdate = true;
         
-        // Xoay nhẹ cả hệ thống tuyết để tạo cảm giác gió thổi
         snowSystem.rotation.y += 0.001;
     }
 
