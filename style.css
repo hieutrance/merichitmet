@@ -1,0 +1,127 @@
+/* 1. Xóa margin/padding mặc định của TẤT CẢ phần tử */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    width: 100%;
+    height: 100%;
+    background-color: #000; 
+    overflow: hidden; 
+    font-family: 'Playwrite DE Grund', cursive;
+
+    touch-action: none; 
+    user-select: none; 
+    -webkit-user-select: none;
+}
+
+canvas {
+    display: block;
+    position: fixed; 
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1; 
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Courier+Prime:wght@700&display=swap');
+
+#overlay {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background-color: #000000;
+    /* Hiệu ứng sọc ngang tivi cũ */
+    background-image: repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 2px,
+        #110000 2px,
+        #110000 4px
+    );
+    display: flex; justify-content: center; align-items: center;
+    z-index: 9999; 
+    transition: opacity 1s;
+    font-family: 'Courier Prime', monospace;
+}
+
+.danger-box {
+    text-align: center;
+    border: 3px solid red;
+    padding: 40px;
+    background: rgba(20, 0, 0, 0.9);
+    box-shadow: 0 0 50px red;
+    animation: shakeBox 0.5s infinite;
+}
+
+h1.blink-text {
+    color: red;
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+    animation: blink 0.3s infinite alternate;
+}
+
+.code-text {
+    color: #ff3333;
+    font-size: 1.2rem;
+    margin: 10px 0;
+    text-align: left;
+    font-family: monospace;
+}
+
+#start-button {
+    margin-top: 30px;
+    color: #fff;
+    background-color: #cc0000;
+    border: 2px solid #ff0000;
+    padding: 15px 30px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1.3rem;
+    font-weight: bold;
+    box-shadow: 0 0 20px red;
+    animation: pulseRed 0.2s infinite;
+    font-family: 'Courier Prime', monospace;
+}
+
+#start-button:hover {
+    background-color: #ff0000;
+    box-shadow: 0 0 50px red;
+}
+
+/* --- Animation --- */
+@keyframes shakeBox {
+    0% { transform: translate(1px, 1px) rotate(0deg); }
+    20% { transform: translate(-1px, -2px) rotate(-1deg); }
+    40% { transform: translate(-3px, 0px) rotate(1deg); }
+    60% { transform: translate(3px, 2px) rotate(0deg); }
+    80% { transform: translate(1px, -1px) rotate(1deg); }
+    100% { transform: translate(-1px, 2px) rotate(-1deg); }
+}
+
+@keyframes blink {
+    from { opacity: 1; text-shadow: 0 0 10px red; }
+    to { opacity: 0.3; text-shadow: 0 0 20px red; }
+}
+
+@keyframes pulseRed {
+    0% { transform: scale(1); }
+    50% { transform: scale(1); }
+    100% { transform: scale(1); }
+}
+
+@media (max-width: 768px) {
+    h1.blink-text {
+        font-size: 1.5rem; 
+    }
+    .code-text {
+        font-size: 0.9rem;
+    }
+    .danger-box {
+        padding: 20px; 
+        width: 90%; 
+    }
+}
